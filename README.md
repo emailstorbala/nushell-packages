@@ -31,8 +31,8 @@ Supported platforms are el8, el9, bookworm and trixie.
 - trixie -> Latest Debian testing. Should work with any latest Ubuntu.
 
 Note:
-    - For Debian/Ubuntu installations, `libssl-dev` is a pre-requisite for nushell.
-    - For el8/el9 (RHEL/Rockylinux/Almalinux), `openssl-devel` is a pre-requisite for nushell.
+  - For Debian/Ubuntu installations, `libssl-dev` is a pre-requisite for nushell.
+  - For el8/el9 (RHEL/Rockylinux/Almalinux), `openssl-devel` is a pre-requisite for nushell.
 
 Actual `nushell` code is maintained under https://github.com/nushell/nushell .
 Please refer to the license under https://github.com/nushell/nushell/blob/main/LICENSE for nushell usage.
