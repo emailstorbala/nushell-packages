@@ -33,7 +33,6 @@ Supported platforms are el8, el9, bookworm and trixie.
 Note:
   - For Debian/Ubuntu installations, `libssl-dev` is a pre-requisite for nushell.
   - For el8/el9 (RHEL/Rockylinux/Almalinux), `openssl-devel` is a pre-requisite for nushell.
-
-Actual `nushell` code is maintained under https://github.com/nushell/nushell .
-Please refer to the license under https://github.com/nushell/nushell/blob/main/LICENSE for nushell usage.
-Documentation is maintained under https://www.nushell.sh/book/ .
+  - Actual `nushell` code is maintained under https://github.com/nushell/nushell .
+  - Please refer to the license under https://github.com/nushell/nushell/blob/main/LICENSE for nushell usage.
+  - Documentation is maintained under https://www.nushell.sh/book/ .
