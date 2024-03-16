@@ -18,12 +18,11 @@ def get_pkg_info [] -> record {
 }
 
 def create_bundle_dir [] {
-	echo "Creating bundle directory ..."
+  echo "Creating bundle directory ..."
   let bin_path = $env.PWD | path join "usr/local/bin"
   let license_path = $env.PWD | path join "usr/share/licenses/nushell"
   let doc_path = $env.PWD | path join "usr/share/doc"
   rm -rf $bin_path $license_path $doc_path
-  echo $"($bin_path), ($license_path), ($doc_path)"
   mkdir $bin_path $license_path $doc_path
   wget ...["https://raw.githubusercontent.com/nushell/nushell/main/CONTRIBUTING.md" -q $"--directory-prefix=($doc_path)"]
   wget ...["https://raw.githubusercontent.com/nushell/nushell/main/README.md" -q $"--directory-prefix=($doc_path)"]
@@ -91,4 +90,7 @@ def main [ platform: string ] {
 
   create_bundle_dir
   create_rpm $iter $op_type
+  if $env.LAST_EXIT_CODE == 0 {
+    echo $"Package created successfully! (char sun)"
+  }
 }
