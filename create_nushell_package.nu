@@ -24,10 +24,14 @@ def create_bundle_dir [] {
   let doc_path = $env.PWD | path join "usr/share/doc"
   rm -rf $bin_path $license_path $doc_path
   mkdir $bin_path $license_path $doc_path
-  wget ...["https://raw.githubusercontent.com/nushell/nushell/main/CONTRIBUTING.md" -q $"--directory-prefix=($doc_path)"]
-  wget ...["https://raw.githubusercontent.com/nushell/nushell/main/README.md" -q $"--directory-prefix=($doc_path)"]
-  wget ...["https://raw.githubusercontent.com/nushell/nushell/main/CODE_OF_CONDUCT.md" -q $"--directory-prefix=($doc_path)"]
-  wget ...["https://raw.githubusercontent.com/nushell/nushell/main/LICENSE" -q $"--directory-prefix=($license_path)"]
+  let contrib = "https://raw.githubusercontent.com/nushell/nushell/main/CONTRIBUTING.md"
+  let readme = "https://raw.githubusercontent.com/nushell/nushell/main/README.md"
+  let coc = "https://raw.githubusercontent.com/nushell/nushell/main/CODE_OF_CONDUCT.md"
+  let lic = "https://raw.githubusercontent.com/nushell/nushell/main/LICENSE"
+  wget ...[$contrib -q $"--directory-prefix=($doc_path)"]
+  wget ...[$readme -q $"--directory-prefix=($doc_path)"]
+  wget ...[$coc -q $"--directory-prefix=($doc_path)"]
+  wget ...[$lic -q $"--directory-prefix=($license_path)"]
 
   cp nu $bin_path
   echo "Done."
@@ -48,6 +52,7 @@ def create_rpm [ iter: string, op_type: string ] {
     "--version" $pkg_info.version
     "--iteration" $iter
     "--maintainer" $pkg_info.maintainer
+    "--vendor" $pkg_info.vendor
     "--provides" $pkg_info.bin
     "--description" $pkg_info.desc
     "--rpm-attr" "755,root,root:/usr/local/bin/nu"
