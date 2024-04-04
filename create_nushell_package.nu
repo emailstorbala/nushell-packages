@@ -6,7 +6,7 @@ def get_pkg_info [] -> record {
       bin: "nu"
       name: "nushell"
       arch: "x86_64"
-      version: "0.91.0"
+      version: "0.92.1"
       vendor: "The Nushell Project Developers"
       desc: "The nushell language and shell."
       category: "nushell"
