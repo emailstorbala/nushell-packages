@@ -72,6 +72,14 @@ def main [ platform: string ] {
   mut iter = ""
   mut op_type = ""
   match $platform {
+    'fc38' => {
+      $iter = $"1.($platform)"
+      $op_type = "rpm"
+    }
+    'fc39' => {
+      $iter = $"1.($platform)"
+      $op_type = "rpm"
+    }
     'el8' => {
       $iter = $"1.($platform)"
       $op_type = "rpm"
