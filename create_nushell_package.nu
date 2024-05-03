@@ -6,7 +6,7 @@ def get_pkg_info [] -> record {
       bin: "nu"
       name: "nushell"
       arch: "x86_64"
-      version: "0.92.1"
+      version: (~/.cargo/bin/nu --version)
       vendor: "The Nushell Project Developers"
       desc: "The nushell language and shell."
       category: "nushell"
@@ -22,6 +22,7 @@ def create_bundle_dir [] {
   let bin_path = $env.PWD | path join "usr/local/bin"
   let license_path = $env.PWD | path join "usr/share/licenses/nushell"
   let doc_path = $env.PWD | path join "usr/share/doc"
+  let nu_cargo_bin_path = $env.HOME | path join ".cargo/bin/nu"
   rm -rf $bin_path $license_path $doc_path
   mkdir $bin_path $license_path $doc_path
   let contrib = "https://raw.githubusercontent.com/nushell/nushell/main/CONTRIBUTING.md"
@@ -33,7 +34,7 @@ def create_bundle_dir [] {
   wget ...[$coc -q $"--directory-prefix=($doc_path)"]
   wget ...[$lic -q $"--directory-prefix=($license_path)"]
 
-  cp nu $bin_path
+  cp $nu_cargo_bin_path $bin_path
   echo "Done."
 }
 
@@ -77,6 +78,10 @@ def main [ platform: string ] {
       $op_type = "rpm"
     }
     'fc39' => {
+      $iter = $"1.($platform)"
+      $op_type = "rpm"
+    }
+    'fc40' => {
       $iter = $"1.($platform)"
       $op_type = "rpm"
     }
