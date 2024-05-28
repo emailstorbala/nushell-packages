@@ -17,7 +17,7 @@ export PATH=$HOME/.cargo/bin:$PATH
 # cargo         - package manager for rust
 # openssl-devel - you know what this is
 
-dnf install -y wget rubygems rpm-build rust cargo openssl-devel
+dnf install -y wget rubygems ruby-devel rpm-build rust cargo openssl-devel
 
 # install fpm which is used to generate the rpm
 gem install fpm
@@ -32,5 +32,5 @@ strip ~/.cargo/bin/nu
 platform=$(cat /etc/os-release | grep VERSION_ID | cut -d "=" -f2)
 
 # run the rpm generation script with the installed version of nu
-nu create_nushell_package.nu "fc${platform}"
+nu create_nushell_package.nu "fc${platform}" "rpm"
 

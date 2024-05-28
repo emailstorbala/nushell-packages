@@ -69,42 +69,45 @@ def create_rpm [ iter: string, op_type: string ] {
   echo "Done."
 }
 
-def main [ platform: string ] {
-  mut iter = ""
-  mut op_type = ""
-  match $platform {
-    'fc38' => {
-      $iter = $"1.($platform)"
-      $op_type = "rpm"
-    }
-    'fc39' => {
-      $iter = $"1.($platform)"
-      $op_type = "rpm"
-    }
-    'fc40' => {
-      $iter = $"1.($platform)"
-      $op_type = "rpm"
-    }
-    'el8' => {
-      $iter = $"1.($platform)"
-      $op_type = "rpm"
-    }
-    'el9' => {
-      $iter = $"1.($platform)"
-      $op_type = "rpm"
-    }
-    'bookworm' => {
-      $iter = $"1.($platform)"
-      $op_type = "deb"
-    }
-    'trixie' => {
-      $iter = $"1.($platform)"
-      $op_type = "deb"
-    }
-    _ => {
-      error make {msg: $"Invalid platform '($platform)' given!"}
-    }
-  }
+def main [ platform: string, pkg_type: string ] {
+  # mut iter = ""
+  # mut op_type = ""
+  # match $platform {
+  #   'fc38' => {
+  #     $iter = $"1.($platform)"
+  #     $op_type = "rpm"
+  #   }
+  #   'fc39' => {
+  #     $iter = $"1.($platform)"
+  #     $op_type = "rpm"
+  #   }
+  #   'fc40' => {
+  #     $iter = $"1.($platform)"
+  #     $op_type = "rpm"
+  #   }
+  #   'el8' => {
+  #     $iter = $"1.($platform)"
+  #     $op_type = "rpm"
+  #   }
+  #   'el9' => {
+  #     $iter = $"1.($platform)"
+  #     $op_type = "rpm"
+  #   }
+  #   'bookworm' => {
+  #     $iter = $"1.($platform)"
+  #     $op_type = "deb"
+  #   }
+  #   'trixie' => {
+  #     $iter = $"1.($platform)"
+  #     $op_type = "deb"
+  #   }
+  #   _ => {
+  #     error make {msg: $"Invalid platform '($platform)' given!"}
+  #   }
+  # }
+
+  let iter = $"1.($platform)"
+  let op_type = $pkg_type
 
   create_bundle_dir
   create_rpm $iter $op_type
