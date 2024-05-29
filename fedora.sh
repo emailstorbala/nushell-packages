@@ -26,7 +26,7 @@ gem install fpm
 cargo install nu
 
 # strip the binary
-strip ~/.cargo/bin/nu
+strip ${HOME}/.cargo/bin/nu
 
 # get the fedora release number
 platform=$(cat /etc/os-release | grep VERSION_ID | cut -d "=" -f2)

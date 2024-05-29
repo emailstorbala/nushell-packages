@@ -35,7 +35,7 @@ source "${HOME}/.cargo/env"
 cargo install nu
 
 # strip the binary
-strip ~/.cargo/bin/nu
+strip ${HOME}/.cargo/bin/nu
 
 # get the fedora release number
 platform=$(cat /etc/os-release | grep PLATFORM_ID | cut -d "=" -f2 | cut -d ":" -f2)
