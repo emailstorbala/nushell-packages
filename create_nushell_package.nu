@@ -2,19 +2,20 @@
 # This program prepares the nushell rpm
 
 def get_pkg_info [] -> record {
-    return {
-      bin: "nu"
-      name: "nushell"
-      arch: "x86_64"
-      version: (~/.cargo/bin/nu --version)
-      vendor: "The Nushell Project Developers"
-      desc: "The nushell language and shell."
-      category: "nushell"
-      url: "https://www.nushell.sh/"
-      maintainer: "www.nushell.sh"
-      license: "MIT License"
-      dir: "build"
-    }
+  let nu_ver = run-external $"($env.HOME)/.cargo/bin/nu" ...["--version"]
+  return {
+    bin: "nu"
+    name: "nushell"
+    arch: "x86_64"
+    version: $nu_ver
+    vendor: "The Nushell Project Developers"
+    desc: "The nushell language and shell."
+    category: "nushell"
+    url: "https://www.nushell.sh/"
+    maintainer: "www.nushell.sh"
+    license: "MIT License"
+    dir: "build"
+  }
 }
 
 def create_bundle_dir [] {
@@ -69,42 +70,45 @@ def create_rpm [ iter: string, op_type: string ] {
   echo "Done."
 }
 
-def main [ platform: string ] {
-  mut iter = ""
-  mut op_type = ""
-  match $platform {
-    'fc38' => {
-      $iter = $"1.($platform)"
-      $op_type = "rpm"
-    }
-    'fc39' => {
-      $iter = $"1.($platform)"
-      $op_type = "rpm"
-    }
-    'fc40' => {
-      $iter = $"1.($platform)"
-      $op_type = "rpm"
-    }
-    'el8' => {
-      $iter = $"1.($platform)"
-      $op_type = "rpm"
-    }
-    'el9' => {
-      $iter = $"1.($platform)"
-      $op_type = "rpm"
-    }
-    'bookworm' => {
-      $iter = $"1.($platform)"
-      $op_type = "deb"
-    }
-    'trixie' => {
-      $iter = $"1.($platform)"
-      $op_type = "deb"
-    }
-    _ => {
-      error make {msg: $"Invalid platform '($platform)' given!"}
-    }
-  }
+def main [ platform: string, pkg_type: string ] {
+  # mut iter = ""
+  # mut op_type = ""
+  # match $platform {
+  #   'fc38' => {
+  #     $iter = $"1.($platform)"
+  #     $op_type = "rpm"
+  #   }
+  #   'fc39' => {
+  #     $iter = $"1.($platform)"
+  #     $op_type = "rpm"
+  #   }
+  #   'fc40' => {
+  #     $iter = $"1.($platform)"
+  #     $op_type = "rpm"
+  #   }
+  #   'el8' => {
+  #     $iter = $"1.($platform)"
+  #     $op_type = "rpm"
+  #   }
+  #   'el9' => {
+  #     $iter = $"1.($platform)"
+  #     $op_type = "rpm"
+  #   }
+  #   'bookworm' => {
+  #     $iter = $"1.($platform)"
+  #     $op_type = "deb"
+  #   }
+  #   'trixie' => {
+  #     $iter = $"1.($platform)"
+  #     $op_type = "deb"
+  #   }
+  #   _ => {
+  #     error make {msg: $"Invalid platform '($platform)' given!"}
+  #   }
+  # }
+
+  let iter = $"1.($platform)"
+  let op_type = $pkg_type
 
   create_bundle_dir
   create_rpm $iter $op_type
