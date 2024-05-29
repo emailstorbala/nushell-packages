@@ -2,19 +2,20 @@
 # This program prepares the nushell rpm
 
 def get_pkg_info [] -> record {
-    return {
-      bin: "nu"
-      name: "nushell"
-      arch: "x86_64"
-      version: (~/.cargo/bin/nu --version)
-      vendor: "The Nushell Project Developers"
-      desc: "The nushell language and shell."
-      category: "nushell"
-      url: "https://www.nushell.sh/"
-      maintainer: "www.nushell.sh"
-      license: "MIT License"
-      dir: "build"
-    }
+  let nu_ver = run-external $"($env.HOME)/.cargo/bin/nu" ...["--version"]
+  return {
+    bin: "nu"
+    name: "nushell"
+    arch: "x86_64"
+    version: $nu_ver
+    vendor: "The Nushell Project Developers"
+    desc: "The nushell language and shell."
+    category: "nushell"
+    url: "https://www.nushell.sh/"
+    maintainer: "www.nushell.sh"
+    license: "MIT License"
+    dir: "build"
+  }
 }
 
 def create_bundle_dir [] {
