@@ -37,7 +37,7 @@ cargo install nu
 # strip the binary
 strip ${HOME}/.cargo/bin/nu
 
-# get the fedora release number
+# get the rockylinux release number
 platform=$(cat /etc/os-release | grep PLATFORM_ID | cut -d "=" -f2 | cut -d ":" -f2)
 
 # run the rpm generation script with the installed version of nu
