@@ -63,6 +63,9 @@ source "${HOME}/.cargo/env"
 
 cargo install nu
 
+# strip the binary
+strip ${HOME}/.cargo/bin/nu
+
 # prepare for running the package generation script
 if [ "$PLATFORM" = "rocky" ]; then
     RELEASE=$(grep PLATFORM_ID /etc/os-release | cut -d "\"" -f2 | cut -d ":" -f2)
