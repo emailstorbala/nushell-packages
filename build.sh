@@ -34,11 +34,22 @@ done
 # NU_SHELL_VERSION=$(find . -maxdepth 1 -name "*fc*" | head -1 | cut -d '-' -f2)
 NU_SHELL_VERSION=$(ls *fc* | head -1 | cut -d '-' -f2)
 TAG="v${NU_SHELL_VERSION}"
+
+# Create a github release to upload the packages to.
 gh_release_id=$(curl -L \
+  -X POST \
   -H "Accept: application/vnd.github+json" \
   -H "Authorization: Bearer ${GH_TOKEN}" \
   -H "X-GitHub-Api-Version: 2022-11-28" \
-  https://api.github.com/repos/emailstorbala/nushell-packages/releases/tags/${TAG} | jq '.id')
+  -d "{\"tag_name\":\"${TAG}\",\"target_commitish\":\"main\",\"name\":\"Release ${NU_SHELL_VERSION}\",\"draft\":false,\"prerelease\":false}" \
+  https://api.github.com/repos/emailstorbala/nushell-packages/releases | jq '.id')
+
+# # Search release by tag name
+# gh_release_id=$(curl -L \
+#   -H "Accept: application/vnd.github+json" \
+#   -H "Authorization: Bearer ${GH_TOKEN}" \
+#   -H "X-GitHub-Api-Version: 2022-11-28" \
+#   https://api.github.com/repos/emailstorbala/nushell-packages/releases/tags/${TAG} | jq '.id')
 
 # upload the generated packages
 for package in $(ls *.rpm *.deb); do
@@ -51,4 +62,6 @@ for package in $(ls *.rpm *.deb); do
   -H "Content-Type: application/octet-stream" \
   "https://uploads.github.com/repos/emailstorbala/nushell-packages/releases/${gh_release_id}/assets?name=${package}" \
   --data-binary "@${package}"
+  # print a new line to seperate the curl output and next line
+  echo ""
 done
