@@ -1,5 +1,5 @@
 #!/usr/bin/env nu
-# This program prepares the nushell rpm
+# This program prepares the nushell package
 
 def get_pkg_info [] -> record {
   let nu_ver = run-external $"($env.HOME)/.cargo/bin/nu" ...["--version"]
@@ -71,42 +71,6 @@ def create_rpm [ iter: string, op_type: string ] {
 }
 
 def main [ platform: string, pkg_type: string ] {
-  # mut iter = ""
-  # mut op_type = ""
-  # match $platform {
-  #   'fc38' => {
-  #     $iter = $"1.($platform)"
-  #     $op_type = "rpm"
-  #   }
-  #   'fc39' => {
-  #     $iter = $"1.($platform)"
-  #     $op_type = "rpm"
-  #   }
-  #   'fc40' => {
-  #     $iter = $"1.($platform)"
-  #     $op_type = "rpm"
-  #   }
-  #   'el8' => {
-  #     $iter = $"1.($platform)"
-  #     $op_type = "rpm"
-  #   }
-  #   'el9' => {
-  #     $iter = $"1.($platform)"
-  #     $op_type = "rpm"
-  #   }
-  #   'bookworm' => {
-  #     $iter = $"1.($platform)"
-  #     $op_type = "deb"
-  #   }
-  #   'trixie' => {
-  #     $iter = $"1.($platform)"
-  #     $op_type = "deb"
-  #   }
-  #   _ => {
-  #     error make {msg: $"Invalid platform '($platform)' given!"}
-  #   }
-  # }
-
   let iter = $"1.($platform)"
   let op_type = $pkg_type
 
