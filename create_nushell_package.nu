@@ -1,7 +1,7 @@
 #!/usr/bin/env nu
 # This program prepares the nushell package
 
-def get_pkg_info [] -> record {
+def get_pkg_info []: nothing -> record {
   let nu_ver = run-external $"($env.HOME)/.cargo/bin/nu" ...["--version"]
   return {
     bin: "nu"

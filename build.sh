@@ -17,7 +17,7 @@ echo "deleting existing packages if any..."
 rm -f *.rpm *.deb
 
 # Fedora
-for release in {39..40}; do
+for release in {40..41}; do
   docker run --rm -it -v $(pwd):/code fedora:${release} /code/create_nushell_package.sh
 done
 
