@@ -17,8 +17,18 @@ echo "deleting existing packages if any..."
 rm -f *.rpm *.deb
 
 # Fedora
-for release in {40..41}; do
-  docker run --rm -it -v $(pwd):/code fedora:${release} /code/create_nushell_package.sh
+# Lets get the list of recent docker image tags against fedora.
+# ignore latest & rawhide tags
+# Sort the remaining tags in descending order
+# now first tag is equivalent to rawhide, so lets ignore.
+# second tag is the current latest release.
+# third tag is the oldest supported release.
+# ignore the rest of the tags as they are EOL releases.
+# lets take the second and third item.
+releases=$(curl -s https://hub.docker.com/v2/namespaces/library/repositories/fedora/tags?page_size=10 | jq ".results[].name" | sort -ru | grep -Ev "latest|rawhide" | head -n 3 | tail -n 2)
+for release in $releases; do
+  tag=$(echo $release | sed -e 's/"//g')
+  docker run --rm -it -v $(pwd):/code fedora:${tag} /code/create_nushell_package.sh
 done
 
 # RockyLinux
