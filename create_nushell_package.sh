@@ -61,7 +61,7 @@ chmod +x /root/rustup-init.sh
 # sourcing rust env
 source "${HOME}/.cargo/env"
 
-cargo install nu
+cargo install nu --locked
 
 # strip the binary
 strip ${HOME}/.cargo/bin/nu
