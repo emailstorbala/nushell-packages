@@ -32,7 +32,7 @@ for release in $releases; do
 done
 
 # RockyLinux
-for release in {8..9}; do
+for release in {8..10}; do
   docker run --rm -it -v $(pwd):/code rockylinux/rockylinux:${release} /code/create_nushell_package.sh
 done
 
